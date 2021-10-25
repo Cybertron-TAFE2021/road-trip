@@ -1,0 +1,44 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .flex-container > div {
+    background-color: lightsteelblue;
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+  }
+  .flex-container > div > a {
+    text-decoration: none;
+  }
+
+/** POI Column **/
+.poi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.poi > div {
+  background-color: lightsteelblue;
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+  font-size: 24px;
+}
+
+ /* Main column */
+.main {
+    flex: 100%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  /* Fake image, just for this example */
+  .fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+  }
