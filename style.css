@@ -66,3 +66,8 @@ td {
   display: flex;
   justify-content: space-between;
 }
+
+.big-button {
+  display: flex;
+  justify-content: center;
+}
