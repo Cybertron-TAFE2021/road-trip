@@ -9,7 +9,7 @@ GROUP NAME:
 
 MEMBER: 
 1. Karen Lam - 377113454
-2. Daniel
+2. Daniel - 880624326
 3. Ankita
 4. Jethro
 
