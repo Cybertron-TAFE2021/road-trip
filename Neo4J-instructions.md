@@ -82,21 +82,38 @@ MATCH p=()-[r:IS_IN_SUBURB]->() DELETE r;
 
 --
 
+
+
+// Import dataset from
+
+
+CREATE CONSTRAINT ON (a:AboriginalPlace) ASSERT a.AboriginalplaceID IS UNIQUE;
+
+LOAD CSV WITH HEADERS FROM 'file:///NPW_Act_Aboriginal_Place_modified.csv' AS row 
+MERGE (a:AboriginalPlace {AboriginalplaceID: row.PlaceID})
+ON CREATE SET a.Postcode = row.Postcode,
+a.ItemName = row.ItemName,
+a.SuburbName = row.Suburb;
+
+
+
+
 // 2nd Attempt to Build another relationship 
 
-:param relType => ("WITHIN_10KM_HAS");
+:param relType => ("HAS_HERITAGE");
 :param properties => null;
-MATCH (r:Restarea),(p:Postcode)
-WHERE distance(point({longitude: r.Longitude, latitude: r.Latitude}),point({longitude: p.Longitude, latitude: p.Latitude})) < 10 * 1000
-
-CALL apoc.create.relationship (r, $relType, $properties, p)
+MATCH (a:AboriginalPlace),(p:Postcode)
+WHERE (p.SuburbName = a.SuburbName)
+CALL apoc.create.relationship (p, $relType, $properties, a)
 YIELD rel
 RETURN rel;
 
 
-// Add more Node properties to r:Restarea 
 
-// Not sure how to make this work yet
+// To Do: Not sure how to make them work yet
+//// 1. Add more Node properties to TABLE (e.g. r:Restarea )
+//// 2. Merge Dupe Suburb?
+
 
 --
 
@@ -104,7 +121,12 @@ RETURN rel;
 // Filter -- this can be used in Broom
 // Perspective  >> Add Search Phrase
 
+// HasLookout
 MATCH (r:Restarea) 
 WHERE r.Lookout = 'TRUE'
 RETURN r;
 
+// HasBBQ
+MATCH (r:Restarea) 
+WHERE r.BBQ = 'TRUE'
+RETURN r;
